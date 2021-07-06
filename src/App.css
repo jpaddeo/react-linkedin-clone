@@ -1,8 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+
 .app {
-  background-color: #f3f2ef;
   display: flex;
   flex-direction: column;
+  background-color: lightgray;
+  font-family: "Montserrat", sans-serif;
 }
 .app__body {
   display: flex;
+  margin-top: 35px;
+  max-width: 1200px;
+  margin-left: 300px;
+  margin-right: 300px;
 }

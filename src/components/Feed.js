@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import CreateIcon from "@material-ui/icons/Create";
 import ImageIcon from "@material-ui/icons/Image";
@@ -7,8 +8,9 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 
 import firebase from "firebase";
-
 import { firebaseDb } from "../firebase";
+
+import { selectUser } from "../features/userSlice";
 
 import FeedInputOption from "./FeedInputOption";
 import FeedPost from "./FeedPost";
@@ -16,6 +18,7 @@ import FeedPost from "./FeedPost";
 import "./Feed.css";
 
 const Feed = () => {
+  const user = useSelector(selectUser);
   const [message, setMessage] = useState("");
   const [posts, setPosts] = useState([]);
 
@@ -36,10 +39,10 @@ const Feed = () => {
   const sendPost = (ev) => {
     ev.preventDefault();
     firebaseDb.collection("posts").add({
-      name: "Sonny Martinez",
-      description: "This is a test",
+      name: user.displayName,
+      description: user.email,
       message: message,
-      photoUrl: "",
+      photoUrl: user.photoUrl,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setMessage("");
