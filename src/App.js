@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Feed from "./components/Feed";
+import Widgets from "./components/Widgets";
 
 import Login from "./Login";
 
@@ -18,12 +19,14 @@ function App() {
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
-        dispatch(login({
-          email: userAuth.email,
-          uid: userAuth.uid,
-          displayName: userAuth.displayName,
-          photoUrl: userAuth.photoURL,
-        }))
+        dispatch(
+          login({
+            email: userAuth.email,
+            uid: userAuth.uid,
+            displayName: userAuth.displayName,
+            photoUrl: userAuth.photoURL,
+          })
+        );
       } else {
         dispatch(logout());
       }
@@ -31,14 +34,17 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <Header />
       {!user ? (
         <Login />
       ) : (
-        <div className="app__body">
-          <Sidebar />
-          <Feed />
-        </div>
+        <>
+          <Header />
+          <div className="app__body">
+            <Sidebar />
+            <Feed />
+            <Widgets />
+          </div>
+        </>
       )}
     </div>
   );
